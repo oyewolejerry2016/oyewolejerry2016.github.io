@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oyewole Jeremiah — Data Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a0a;--white:#f5f2ee;--tan:#c9b89a;--tan-dark:#8a7560;--accent:#d4a853;--muted:#5a5550;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--sans);overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:10px;height:10px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(212,168,83,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .4s,width .3s,height .3s}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;background:linear-gradient(to bottom,rgba(10,10,10,.95),transparent)}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;letter-spacing:.08em;color:var(--white);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:rgba(245,242,238,.65);text-decoration:none;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:color .3s}
+.nav-links a:hover{color:var(--accent)}
+#home{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(201,184,154,.06) 0%,transparent 70%);pointer-events:none}
+.hero-left{z-index:2}
+.hero-eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tan-dark);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero-title{font-family:var(--serif);font-size:clamp(3.5rem,6vw,5.5rem);font-weight:300;line-height:1.05;opacity:0;animation:fadeUp .9s .35s forwards}
+.hero-title em{font-style:italic;color:var(--tan)}
+.hero-pill{display:inline-flex;align-items:center;gap:.6rem;border:1px solid rgba(245,242,238,.2);border-radius:100px;padding:.7rem 1.6rem;font-size:.85rem;margin-top:2.5rem;opacity:0;animation:fadeUp .9s .5s forwards;color:var(--white);transition:border-color .3s;cursor:pointer;background:transparent}
+.hero-pill:hover{border-color:var(--accent);color:var(--accent)}
+.hero-pill span{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.hero-right{display:flex;justify-content:center;align-items:center;position:relative;z-index:2;opacity:0;animation:fadeIn 1.2s .6s forwards}
+.hero-img-wrap{position:relative;width:340px;height:420px}
+.hero-oval{width:100%;height:100%;border-radius:50%/55% 55% 45% 45%;overflow:hidden;background:#1a1510}
+.hero-oval img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.93)}
+.hero-cta{position:absolute;bottom:-1.5rem;right:-1rem;display:flex;align-items:center;gap:.8rem;font-size:.85rem;color:var(--white);text-decoration:none}
+.hero-cta:hover .arr{transform:translateX(4px)}
+.arr{transition:transform .3s;color:var(--accent)}
+.scroll-hint{position:absolute;bottom:2.5rem;left:4rem;display:flex;align-items:center;gap:1rem;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeIn 1s 1.2s forwards}
+.scroll-line{width:40px;height:1px;background:var(--muted);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:1px;background:var(--accent);animation:scrollLine 2s 1.5s infinite}
+section{padding:7rem 4rem;position:relative}
+.slabel{font-size:.82rem;letter-spacing:.25em;text-transform:uppercase;color:var(--tan-dark);margin-bottom:1rem;font-weight:600}
+.stitle{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:300;line-height:1.1;margin-bottom:3rem}
+.stitle em{font-style:italic;color:var(--tan)}
+.divider{width:100%;height:1px;background:linear-gradient(to right,rgba(201,184,154,.3),transparent);margin-bottom:5rem}
+#about{display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;align-items:start}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.stat{border:1px solid rgba(201,184,154,.15);padding:1.5rem;border-radius:4px;transition:border-color .3s}
+.stat:hover{border-color:rgba(212,168,83,.4)}
+.stat-n{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--tan);line-height:1}
+.stat-l{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+.about-text p{font-size:1.05rem;line-height:1.85;color:rgba(245,242,238,.75);margin-bottom:1.5rem;font-weight:300}
+.about-text p strong{color:var(--tan);font-weight:400}
+.cta-link{display:inline-flex;align-items:center;gap:.6rem;margin-top:.5rem;color:var(--accent);font-size:.9rem;text-decoration:none;transition:gap .3s}
+.cta-link:hover{gap:1rem}
+#tools{background:rgba(255,255,255,.015)}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:1px;border:1px solid rgba(201,184,154,.12);border-radius:4px;overflow:hidden;margin-top:1rem}
+.tool{padding:1.5rem 1rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;border-right:1px solid rgba(201,184,154,.1);border-bottom:1px solid rgba(201,184,154,.1);transition:background .3s;text-align:center}
+.tool:hover{background:rgba(201,184,154,.06)}
+.tool svg{width:36px;height:36px}
+.tool-name{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,242,238,.6)}
+.skills-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:1rem}
+.skill-cat{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tan-dark);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(201,184,154,.15)}
+.bar-wrap{margin-bottom:1.4rem}
+.bar-label{font-size:.85rem;color:rgba(245,242,238,.7);margin-bottom:.5rem;font-weight:300}
+.bar-track{height:2px;background:rgba(201,184,154,.12);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(to right,var(--tan-dark),var(--accent));border-radius:2px;width:100%}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:1rem}
+.card{border:1px solid rgba(201,184,154,.12);border-radius:6px;overflow:hidden;transition:border-color .4s,transform .4s}
+.card:hover{border-color:rgba(212,168,83,.4);transform:translateY(-6px)}
+.slideshow{position:relative;height:220px;overflow:hidden;background:#111}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .6s}
+.slide.active{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;object-position:top}
+.slide-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5}
+.dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:background .3s;border:none;padding:0}
+.dot.active{background:var(--accent)}
+.arrows{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 .6rem;z-index:5;opacity:0;transition:opacity .3s;pointer-events:none}
+.slideshow:hover .arrows{opacity:1;pointer-events:all}
+.arrow{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);color:white;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.arrow:hover{background:rgba(212,168,83,.6)}
+.pnum{position:absolute;top:1.2rem;left:1.5rem;font-family:var(--serif);font-size:3.5rem;font-weight:300;color:rgba(245,242,238,.1);line-height:1;z-index:3;pointer-events:none}
+.ptag{position:absolute;top:1.2rem;right:1.2rem;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;background:rgba(212,168,83,.15);color:var(--accent);padding:.3rem .8rem;border-radius:100px;border:1px solid rgba(212,168,83,.3);z-index:3}
+.card-body{padding:1.8rem;background:rgba(255,255,255,.02)}
+.card-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;line-height:1.3;margin-bottom:1rem;color:var(--white)}
+.card-desc{font-size:.82rem;line-height:1.75;color:rgba(245,242,238,.55);margin-bottom:1.4rem;font-weight:300}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.4rem}
+.tag{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(201,184,154,.7);background:rgba(201,184,154,.07);padding:.25rem .65rem;border-radius:3px}
+.proj-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tan-dark);transition:color .3s,gap .3s;text-decoration:none}
+.card:hover .proj-link{color:var(--accent);gap:.8rem}
+#contact{background:rgba(255,255,255,.015);text-align:center}
+.contact-inner{max-width:700px;margin:0 auto}
+.contact-sub{font-size:1rem;line-height:1.8;color:rgba(245,242,238,.55);margin-bottom:3.5rem;font-weight:300}
+.contact-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:3rem}
+.contact-link{display:flex;align-items:center;gap:.75rem;padding:1rem 2rem;border:1px solid rgba(201,184,154,.2);border-radius:100px;text-decoration:none;color:var(--white);font-size:.85rem;transition:all .3s;font-weight:300}
+.contact-link:hover{border-color:var(--accent);color:var(--accent);background:rgba(212,168,83,.05)}
+.contact-link svg{width:16px;height:16px}
+.email-big{display:block;font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,1.8rem);font-style:italic;color:var(--tan);text-decoration:none;margin-bottom:4rem;transition:color .3s}
+.email-big:hover{color:var(--accent)}
+footer{padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(201,184,154,.08)}
+.fc{font-size:.72rem;color:var(--muted);letter-spacing:.08em}
+.fn{font-family:var(--serif);font-size:.9rem;color:rgba(245,242,238,.3)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scrollLine{0%{left:-100%}100%{left:100%}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}
+  .nav-links{display:none}
+  #home{grid-template-columns:1fr;padding:6rem 1.5rem 4rem;text-align:center}
+  .hero-right{margin-top:3rem}
+  .hero-img-wrap{width:240px;height:300px}
+  section{padding:5rem 1.5rem}
+  #about{grid-template-columns:1fr;gap:3rem}
+  .projects-grid{grid-template-columns:1fr}
+  .skills-wrap{grid-template-columns:1fr}
+  footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<nav>
+  <a class="nav-logo" href="#home">OJ.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Data Scientist · Data Analyst · ML Engineer</p>
+    <h1 class="hero-title">Welcome to<br>My <em>Data</em><br>Portfolio</h1>
+    <button class="hero-pill"><span></span>Oyewole Jeremiah Oladayo</button>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <div class="hero-oval"><img src="images/photo.jpg" alt="Oyewole Jeremiah" loading="eager"/></div>
+      <a class="hero-cta" href="#projects"><span class="arr">↳</span> View my work</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll to explore</div>
+</section>
+
+<div class="divider" style="margin:0 4rem"></div>
+
+<section id="about">
+  <div class="reveal">
+    <p class="slabel">01 — About Me</p>
+    <h2 class="stitle">Turning raw<br>data into <em>insight</em></h2>
+    <div class="stats">
+      <div class="stat"><div class="stat-n">5+</div><div class="stat-l">End-to-End Projects</div></div>
+      <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Core Tools Mastered</div></div>
+      <div class="stat"><div class="stat-n">ML</div><div class="stat-l">Predictive Modelling</div></div>
+      <div class="stat"><div class="stat-n">BI</div><div class="stat-l">Visual Analytics</div></div>
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <p>I'm a <strong>Data Scientist</strong> specializing in data analysis and machine learning. I work with data to find patterns, build models, and translate findings into decisions that matter to the business.</p>
+    <p>My process is straightforward — understand the problem, clean and explore the data, build what's needed, and communicate results clearly.</p>
+    <p>I'm always expanding my technical skill set and taking on projects that challenge me to think deeper and deliver better.</p>
+    <p>If my work aligns with what you're looking for, <strong>let's work together.</strong></p>
+    <a href="#contact" class="cta-link">Get in touch <span>→</span></a>
+  </div>
+</section>
+
+<div class="divider" style="margin:0 4rem"></div>
+
+<section id="tools">
+  <div class="reveal">
+    <p class="slabel">02 — Toolkit</p>
+    <h2 class="stitle">The tools I <em>work with</em></h2>
+  </div>
+  <div class="tools-grid reveal">
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#1D6F42"/><path d="M22 8H14C12.9 8 12 8.9 12 10v20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V14L22 8z" fill="white" opacity=".15"/><path d="M22 8v6h6L22 8z" fill="white" opacity=".3"/><text x="20" y="28" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="Arial">XLS</text></svg><div class="tool-name">Excel</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#F2C811"/><rect x="8" y="24" width="6" height="8" rx="1" fill="#3B3B3B"/><rect x="17" y="18" width="6" height="14" rx="1" fill="#3B3B3B"/><rect x="26" y="10" width="6" height="22" rx="1" fill="#3B3B3B"/></svg><div class="tool-name">Power BI</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#336791"/><ellipse cx="20" cy="13" rx="10" ry="4" fill="white" opacity=".9"/><path d="M10 13v14c0 2.2 4.5 4 10 4s10-1.8 10-4V13" stroke="white" stroke-width="1.5" fill="none" opacity=".7"/><path d="M10 20c0 2.2 4.5 4 10 4s10-1.8 10-4" stroke="white" stroke-width="1.5" fill="none" opacity=".7"/></svg><div class="tool-name">SQL</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#E97627"/><rect x="18.5" y="7" width="3" height="10" rx="1.5" fill="white"/><rect x="18.5" y="23" width="3" height="10" rx="1.5" fill="white"/><rect x="7" y="18.5" width="10" height="3" rx="1.5" fill="white"/><rect x="23" y="18.5" width="10" height="3" rx="1.5" fill="white"/></svg><div class="tool-name">Tableau</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#1e415e"/><path d="M19.5 7C15 7 12 9 12 11.5V14h8v1H10.5C8 15 6 17 6 20s2 6 4.5 6H13v-3c0-2.5 2.5-4.5 7-4.5s7 2 7 4.5v6.5c0 2.5-3 4.5-8 4.5S11 32 11 29.5V27H9v2.5C9 33 13.5 36 20 36s11-3 11-6.5V23c0-3-2.5-5-7-5h-3v-3h8v-2.5C29 9 24.5 7 19.5 7z" fill="url(#pyg)"/><defs><linearGradient id="pyg" x1="6" y1="7" x2="31" y2="36" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4584b6"/><stop offset="100%" stop-color="#ffde57"/></linearGradient></defs><circle cx="16.5" cy="11" r="1.5" fill="#ffde57"/><circle cx="23.5" cy="29" r="1.5" fill="#4584b6"/></svg><div class="tool-name">Python</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#013243"/><path d="M20 8l-11 7v10l11 7 11-7V15L20 8z" fill="none" stroke="#4DABCF" stroke-width="1.5"/><path d="M9 15l11 7 11-7" stroke="#4DABCF" stroke-width="1.5" fill="none"/><path d="M20 22v10" stroke="#4DABCF" stroke-width="1.5"/></svg><div class="tool-name">NumPy</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#150458"/><rect x="14" y="8" width="4" height="24" rx="2" fill="#FFCA00"/><rect x="22" y="8" width="4" height="24" rx="2" fill="#E70488"/><rect x="11" y="15" width="18" height="3" rx="1.5" fill="white" opacity=".2"/><rect x="11" y="22" width="18" height="3" rx="1.5" fill="white" opacity=".2"/></svg><div class="tool-name">Pandas</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#F7931E"/><circle cx="20" cy="20" r="9" fill="none" stroke="white" stroke-width="2"/><circle cx="20" cy="20" r="4" fill="white"/><path d="M20 11v3M20 26v3M11 20h3M26 20h3" stroke="white" stroke-width="2" stroke-linecap="round"/></svg><div class="tool-name">Scikit-learn</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#FF6F00"/><path d="M20 7l-11 7v5l11-6 11 6v-5L20 7z" fill="white"/><path d="M9 21v6l11 7v-6L9 21z" fill="white" opacity=".7"/><path d="M31 21l-11 7v6l11-7v-6z" fill="white" opacity=".9"/></svg><div class="tool-name">TensorFlow</div></div>
+    <div class="tool"><svg viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="6" fill="#EE4C2C"/><path d="M20 7l-2.5 2.5 2.5 2.5 2.5-2.5L20 7z" fill="white"/><path d="M20 12c-5.5 0-9.5 4-9.5 9s4 9 9.5 9 9.5-4 9.5-9" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="27" cy="14" r="1.8" fill="white"/></svg><div class="tool-name">PyTorch</div></div>
+  </div>
+</section>
+
+<div class="divider" style="margin:0 4rem"></div>
+
+<section id="skills">
+  <p class="slabel reveal">03 — Technical Skills</p>
+  <h2 class="stitle reveal">What I bring <em>to the table</em></h2>
+  <div class="skills-wrap">
+    <div class="reveal">
+      <p class="skill-cat">Data & Analysis</p>
+      <div class="bar-wrap"><div class="bar-label">Data Wrangling & EDA</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">SQL & Database Querying</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">Statistical Analysis</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">Data Manipulation & Cleaning</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">Clear Communication of Insights</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+    </div>
+    <div class="reveal">
+      <p class="skill-cat">Machine Learning & Deployment</p>
+      <div class="bar-wrap"><div class="bar-label">Predictive Modelling (ML)</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">Feature Engineering</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">Data Visualization</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+      <div class="bar-wrap"><div class="bar-label">Model Deployment</div><div class="bar-track"><div class="bar-fill"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="margin:0 4rem"></div>
+
+<section id="projects">
+  <p class="slabel reveal">04 — Projects</p>
+  <h2 class="stitle reveal">Work that <em>solves</em> real problems</h2>
+  <div class="projects-grid">
+
+    <div class="card reveal">
+      <div class="slideshow">
+        <div class="slide active"><img src="images/hr_dashboard.png" alt="HR Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/score_single.png" alt="Score Employee" loading="lazy"/></div>
+        <div class="slide"><img src="images/batch_employee.png" alt="Batch Scoring" loading="lazy"/></div>
+        <div class="pnum">01</div><div class="ptag">ML + BI</div>
+        <div class="arrows"><button class="arrow prev">&#8249;</button><button class="arrow next">&#8250;</button></div>
+        <div class="slide-dots"><button class="dot active"></button><button class="dot"></button><button class="dot"></button></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Employee Flight Risk Analysis & Prediction</h3>
+        <p class="card-desc">Analysed employee data and built a predictive model to identify employees at risk of leaving — enabling HR teams to intervene proactively before resignations occur.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">XGBoost</span><span class="tag">Scikit-learn</span><span class="tag">Power BI</span><span class="tag">Streamlit</span></div>
+        <a href="https://github.com/oyewolejerry2016/Employee-Flight-Risk-Model" target="_blank" class="proj-link">View on GitHub <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="slideshow">
+        <div class="slide active"><img src="images/churn_dashboard.png" alt="Churn Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/prediction_dashboard.png" alt="Prediction Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/streamlit_single.png" alt="Streamlit Single" loading="lazy"/></div>
+        <div class="slide"><img src="images/streamlit_batch.png" alt="Streamlit Batch" loading="lazy"/></div>
+        <div class="pnum">02</div><div class="ptag">End-to-End</div>
+        <div class="arrows"><button class="arrow prev">&#8249;</button><button class="arrow next">&#8250;</button></div>
+        <div class="slide-dots"><button class="dot active"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Customer Churn Analysis & Prediction</h3>
+        <p class="card-desc">End-to-end analytics across 64,374 customers combining Power BI dashboards with an XGBoost model. Live Streamlit app supporting individual and bulk CSV batch scoring.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">XGBoost</span><span class="tag">Random Forest</span><span class="tag">Power BI</span><span class="tag">Streamlit</span></div>
+        <a href="https://github.com/oyewolejerry2016/Customer_Churn_Prediction" target="_blank" class="proj-link">View on GitHub <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="slideshow">
+        <div class="slide active"><img src="images/furniture_dashboard.png" alt="Furniture Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/streamlit_furniture.png" alt="Profit Predictor" loading="lazy"/></div>
+        <div class="pnum">03</div><div class="ptag">Business Intelligence</div>
+        <div class="arrows"><button class="arrow prev">&#8249;</button><button class="arrow next">&#8250;</button></div>
+        <div class="slide-dots"><button class="dot active"></button><button class="dot"></button></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Furniture Business Analysis & Profit Predictor</h3>
+        <p class="card-desc">A retail company with $739K revenue kept just $18.6K profit (2.52% margin). Uncovered root causes and deployed an ML model that predicts order profitability before processing.</p>
+        <div class="tags"><span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">Pandas</span><span class="tag">Streamlit</span></div>
+        <a href="https://github.com/oyewolejerry2016/Furniture-profit-predictor" target="_blank" class="proj-link">View on GitHub <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="slideshow">
+        <div class="slide active"><img src="images/ecom_sales.png" alt="Sales Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/ecom_customers.png" alt="Customer Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/ecom_operational.png" alt="Operational Dashboard" loading="lazy"/></div>
+        <div class="slide"><img src="images/ecom_streamlit.png" alt="Recommendation App" loading="lazy"/></div>
+        <div class="pnum">04</div><div class="ptag">BI + ML</div>
+        <div class="arrows"><button class="arrow prev">&#8249;</button><button class="arrow next">&#8250;</button></div>
+        <div class="slide-dots"><button class="dot active"></button><button class="dot"></button><button class="dot"></button><button class="dot"></button></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">E-commerce Sales Analysis & Recommendation System</h3>
+        <p class="card-desc">Full BI solution across 17,049 transactions and 5,000 customers. Covers sales performance, customer behaviour, and operational efficiency — plus a live ML-powered Product Recommendation System.</p>
+        <div class="tags"><span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Pandas</span><span class="tag">Streamlit</span></div>
+        <a href="https://github.com/oyewolejerry2016/Ecommerce-sales-analysis" target="_blank" class="proj-link">View on GitHub <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="slideshow">
+        <div class="slide active"><img src="images/sql_project1.png" alt="SQL Project Part 1" loading="lazy"/></div>
+        <div class="slide"><img src="images/sql_project2.png" alt="SQL Project Part 2" loading="lazy"/></div>
+        <div class="pnum">05</div><div class="ptag">SQL</div>
+        <div class="arrows"><button class="arrow prev">&#8249;</button><button class="arrow next">&#8250;</button></div>
+        <div class="slide-dots"><button class="dot active"></button><button class="dot"></button></div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Superstore Sales Performance Analysis — SQL Project</h3>
+        <p class="card-desc">Full end-to-end SQL analysis of 896 retail store locations inside Microsoft SQL Server — covering database creation, data cleaning, exploratory analysis, advanced querying, and BI reporting. Goal: identify what separates high-performing stores from low-performing ones.</p>
+        <div class="tags"><span class="tag">Microsoft SQL Server</span><span class="tag">SQL</span><span class="tag">Data Cleaning</span><span class="tag">EDA</span><span class="tag">Business Intelligence</span></div>
+        <a href="https://github.com/oyewolejerry2016/SQL-Project-Superstore-Sales-Performance-Analysis" target="_blank" class="proj-link">View on GitHub <span>→</span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider" style="margin:0 4rem"></div>
+
+<section id="contact">
+  <div class="contact-inner">
+    <p class="slabel reveal">05 — Let's Work Together</p>
+    <h2 class="stitle reveal">Have a problem<br>worth <em>solving?</em></h2>
+    <p class="contact-sub reveal">Whether you need predictive models, interactive dashboards, data-driven insights, or a full end-to-end analytics solution — I'm open to freelance projects, collaborations, and opportunities.</p>
+    <a href="mailto:oyewolejerry2016@gmail.com" class="email-big reveal">oyewolejerry2016@gmail.com</a>
+    <div class="contact-links reveal">
+      <a href="https://www.linkedin.com/in/oyewole-jeremiah-9711a3231/" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn
+      </a>
+      <a href="https://github.com/oyewolejerry2016" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>GitHub
+      </a>
+      <a href="mailto:oyewolejerry2016@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fc">© 2025 Oyewole Jeremiah Oladayo. All rights reserved.</div>
+  <div class="fn">Data Scientist · Data Analyst · ML Engineer</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function a(){cur.style.left=mx+'px';cur.style.top=my+'px';rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button,.card,.tool,.stat').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2)';ring.style.width='60px';ring.style.height='60px'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px'});
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*80)});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.slideshow').forEach(ss=>{
+  const slides=ss.querySelectorAll('.slide'),dots=ss.querySelectorAll('.dot');
+  let c=0;
+  function go(n){slides[c].classList.remove('active');dots[c].classList.remove('active');c=(n+slides.length)%slides.length;slides[c].classList.add('active');dots[c].classList.add('active');}
+  ss.querySelector('.next').addEventListener('click',e=>{e.stopPropagation();go(c+1)});
+  ss.querySelector('.prev').addEventListener('click',e=>{e.stopPropagation();go(c-1)});
+  dots.forEach((d,i)=>d.addEventListener('click',e=>{e.stopPropagation();go(i)}));
+  setInterval(()=>go(c+1),4000);
+});
+</script>
+</body>
+</html>
